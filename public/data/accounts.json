@@ -1,0 +1,5 @@
+[
+    { "number": "1234567890", "bank": "BCA" },
+    { "number": "0987654321", "bank": "Mandiri" },
+    { "number": "1122334455", "bank": "BRI" }
+]

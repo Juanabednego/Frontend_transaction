@@ -1,0 +1,4 @@
+[
+    { "qr": "QR001", "rekening": "1234567890", "bank": "BCA" },
+    { "qr": "QR002", "rekening": "0987654321", "bank": "Mandiri" }
+]

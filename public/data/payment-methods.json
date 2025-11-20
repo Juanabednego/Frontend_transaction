@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "code": "qris",
+    "name": "QRIS",
+    "description": "Scan QRIS untuk pembayaran",
+    "icon": "qr-code-scan",
+    "color": "success"
+  },
+  {
+    "id": 2,
+    "code": "va_bri",
+    "name": "VA BRI",
+    "description": "Virtual Account BRI",
+    "icon": "building",
+    "color": "primary"
+  },
+  {
+    "id": 3,
+    "code": "va_mandiri",
+    "name": "VA Mandiri",
+    "description": "Virtual Account Mandiri",
+    "icon": "building",
+    "color": "info"
+  },
+  {
+    "id": 4,
+    "code": "va_bni",
+    "name": "VA BNI",
+    "description": "Virtual Account BNI",
+    "icon": "building",
+    "color": "warning"
+  },
+  {
+    "id": 5,
+    "code": "va_bca",
+    "name": "VA BCA",
+    "description": "Virtual Account BCA",
+    "icon": "building",
+    "color": "danger"
+  }
+]
