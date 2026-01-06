@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import SidebarUser from './components/SidebarUser.vue'
-import SidebarAdmin from './components/SidebarAdmin.vue'
-import TopbarUser from './components/TopbarUser.vue'
-import TopbarAdmin from './components/TopbarAdmin.vue'
+import SidebarUser from './components/user/Sidebar.vue'
+import SidebarAdmin from './components/admin/Sidebar.vue'
+import TopbarUser from './components/user/Topbar.vue'
+import TopbarAdmin from './components/admin/Topbar.vue'
 
 export default {
   components: { SidebarUser, SidebarAdmin, TopbarUser, TopbarAdmin },
