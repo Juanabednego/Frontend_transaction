@@ -307,7 +307,7 @@ export default {
       checking.value = true
       
       try {
-        const response = await fetch(`http://localhost:3000/api/sync-status/${orderId.value}`, {
+        const response = await fetch(`https://testingbe.smeruu.com/api/sync-status/${orderId.value}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -340,7 +340,7 @@ export default {
       // Get VA number if available
       if (orderId.value) {
         try {
-          const response = await fetch(`http://localhost:3000/api/transaction-status/${orderId.value}`)
+          const response = await fetch(`https://testingbe.smeruu.com/api/transaction-status/${orderId.value}`)
           const result = await response.json()
           if (result.success && result.data.pg_response) {
             virtualAccount.value = result.data.pg_response.va_numbers?.[0]?.va_number || 

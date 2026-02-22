@@ -273,7 +273,7 @@ export default {
 
     const loadCustomerInfo = async (userId) => {
       try {
-        const response = await fetch(`http://localhost:3000/api/auth/user/${userId}`)
+        const response = await fetch(`https://testingbe.smeruu.com/api/auth/user/${userId}`)
         const result = await response.json()
         
         if (result.success) {
@@ -291,7 +291,7 @@ export default {
 
     const updateTransactionUserId = async (orderId, userId) => {
       try {
-        const response = await fetch('http://localhost:3000/api/update-user-id', {
+        const response = await fetch('https://testingbe.smeruu.com/api/update-user-id', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -316,13 +316,13 @@ export default {
     const loadPaymentMethods = async () => {
       try {
         // Test backend connection first
-        const testResponse = await fetch('http://localhost:3000/', {
+        const testResponse = await fetch('https://testingbe.smeruu.com/', {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' }
         })
         
         if (!testResponse.ok) {
-          throw new Error('Backend tidak dapat diakses. Pastikan server berjalan di http://localhost:3000')
+          throw new Error('Backend tidak dapat diakses. Pastikan server berjalan di https://testingbe.smeruu.com')
         }
         
         // Load payment methods (static data)
@@ -599,7 +599,7 @@ export default {
 
     const checkPaymentStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/transaction-status/${transactionData.value.order_id}`)
+        const response = await fetch(`https://testingbe.smeruu.com/api/transaction-status/${transactionData.value.order_id}`)
         const result = await response.json()
         
         if (result.success) {
@@ -641,7 +641,7 @@ export default {
 
     const simulateCallback = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/test-callback', {
+        const response = await fetch('https://testingbe.smeruu.com/api/test-callback', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -665,7 +665,7 @@ export default {
 
     const syncWithMidtrans = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/sync-status/${transactionData.value.order_id}`, {
+        const response = await fetch(`https://testingbe.smeruu.com/api/sync-status/${transactionData.value.order_id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -686,7 +686,7 @@ export default {
 
     const simulateSuccess = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/update-status', {
+        const response = await fetch('https://testingbe.smeruu.com/api/update-status', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
