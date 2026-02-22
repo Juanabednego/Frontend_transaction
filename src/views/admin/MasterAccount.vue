@@ -43,8 +43,12 @@
               <tr v-for="account in accounts" :key="account._id">
                 <td class="fw-semibold">{{ account.name }}</td>
                 <td><code class="small">{{ account.pg_merchant_id }}</code></td>
-                <td>{{ formatCurrency(parseFloat(account.limit_max.$numberDecimal || account.limit_max)) }}</td>
-                <td>{{ formatCurrency(parseFloat(account.limit_used.$numberDecimal || account.limit_used)) }}</td>
+                <td>
+  {{ formatCurrency(parseFloat(account?.limit_max?.$numberDecimal ?? account?.limit_max ?? 0)) }}
+</td>
+<td>
+  {{ formatCurrency(parseFloat(account?.limit_used?.$numberDecimal ?? account?.limit_used ?? 0)) }}
+</td>
                 <td>
                   <span :class="getRemainingLimitClass(account)">
                     {{ formatCurrency(getRemaining(account)) }}
