@@ -146,7 +146,7 @@ export default {
     const loadUtilization = async () => {
       loading.value = true
       try {
-        const response = await fetch('https://testingbe.smeruu.com/api/admin/pga-utilization')
+        const response = await fetch('https://smeruu.com/api/admin/pga-utilization')
         const result = await response.json()
         
         if (result.success) {
@@ -154,7 +154,7 @@ export default {
         }
         
         // Check rebalance status
-        const rebalanceResponse = await fetch('https://testingbe.smeruu.com/api/admin/rebalance-check')
+        const rebalanceResponse = await fetch('https://smeruu.com/api/admin/rebalance-check')
         const rebalanceResult = await rebalanceResponse.json()
         
         if (rebalanceResult.success) {
@@ -176,7 +176,7 @@ export default {
       testResult.value = null
       
       try {
-        const response = await fetch('https://testingbe.smeruu.com/api/admin/test-pga-selection', {
+        const response = await fetch('https://smeruu.com/api/admin/test-pga-selection', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ amount: parseFloat(testAmount.value) })

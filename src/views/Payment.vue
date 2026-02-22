@@ -273,7 +273,7 @@ export default {
 
     const loadCustomerInfo = async (userId) => {
       try {
-        const response = await fetch(`https://testingbe.smeruu.com/api/auth/user/${userId}`)
+        const response = await fetch(`https://smeruu.com/api/auth/user/${userId}`)
         const result = await response.json()
         
         if (result.success) {
@@ -291,7 +291,7 @@ export default {
 
     const updateTransactionUserId = async (orderId, userId) => {
       try {
-        const response = await fetch('https://testingbe.smeruu.com/api/update-user-id', {
+        const response = await fetch('https://smeruu.com/api/update-user-id', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -316,7 +316,7 @@ export default {
     const loadPaymentMethods = async () => {
       try {
         // Test backend connection first
-        const testResponse = await fetch('https://testingbe.smeruu.com/', {
+        const testResponse = await fetch('https://smeruu.com/', {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' }
         })
@@ -599,7 +599,7 @@ export default {
 
     const checkPaymentStatus = async () => {
       try {
-        const response = await fetch(`https://testingbe.smeruu.com/api/transaction-status/${transactionData.value.order_id}`)
+        const response = await fetch(`https://smeruu.com/api/transaction-status/${transactionData.value.order_id}`)
         const result = await response.json()
         
         if (result.success) {
@@ -641,7 +641,7 @@ export default {
 
     const simulateCallback = async () => {
       try {
-        const response = await fetch('https://testingbe.smeruu.com/api/test-callback', {
+        const response = await fetch('https://smeruu.com/api/test-callback', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -665,7 +665,7 @@ export default {
 
     const syncWithMidtrans = async () => {
       try {
-        const response = await fetch(`https://testingbe.smeruu.com/api/sync-status/${transactionData.value.order_id}`, {
+        const response = await fetch(`https://smeruu.com/api/sync-status/${transactionData.value.order_id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -686,7 +686,7 @@ export default {
 
     const simulateSuccess = async () => {
       try {
-        const response = await fetch('https://testingbe.smeruu.com/api/update-status', {
+        const response = await fetch('https://smeruu.com/api/update-status', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
