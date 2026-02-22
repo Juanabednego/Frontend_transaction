@@ -266,7 +266,7 @@ export default {
 
     const syncAllPending = async () => {
       try {
-        const response = await fetch('https://smeruu.com/api/sync-all-pending', {
+        const response = await fetch('https://testingbe.smeruu.com/api/sync-all-pending', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
