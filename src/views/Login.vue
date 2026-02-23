@@ -37,9 +37,7 @@
 
       <hr class="my-3">
 
-      <small class="text-muted d-block text-center mb-2">Demo Credentials:</small>
-      <small class="d-block text-center">Admin: admin / admin123</small>
-      <small class="d-block text-center">User: user / user123</small>
+     
     </div>
   </div>
 </template>
