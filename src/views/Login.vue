@@ -1,7 +1,8 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-      <h2 class="mb-4 text-center fw-bold">Login</h2>
+      <h2 class="mb-4 text-center fw-bold">Admin Login</h2>
+      <p class="text-center text-muted mb-4">Login khusus untuk administrator</p>
 
       <div v-if="error" class="alert alert-danger mb-3">
         {{ error }}
@@ -14,7 +15,7 @@
             v-model="username"
             type="text"
             class="form-control"
-            placeholder="admin atau user"
+            placeholder="admin"
             required
           />
         </div>
@@ -65,6 +66,13 @@ export default {
 
       const user = findUser(this.username, this.password)
       if (user) {
+        // Only allow admin login
+        if (user.role !== 'admin') {
+          this.error = 'Akses ditolak. Login ini hanya untuk administrator.'
+          this.loading = false
+          return
+        }
+        
         const authData = {
           username: user.username,
           role: user.role,
@@ -73,13 +81,8 @@ export default {
         }
         localStorage.setItem('authUser', JSON.stringify(authData))
 
-        // Redirect based on role
-        if (this.$route.query.redirect) {
-          this.$router.replace({ path: this.$route.query.redirect })
-        } else {
-          const defaultPath = user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard'
-          this.$router.replace({ path: defaultPath })
-        }
+        // Redirect to admin dashboard
+        this.$router.replace({ path: '/admin/dashboard' })
       } else {
         this.error = 'Username atau password salah'
       }
