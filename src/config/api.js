@@ -6,7 +6,7 @@ export const SECRET_KEY =
 
 // API Endpoints
 export const ENDPOINTS = {
-    PROCESS_PAYMENT: '/api/process-payment',
+    PROCESS_PAYMENT: '/api/payment/process-payment',
     CHECK_STATUS: '/api/check-status',
     ADMIN_ACCOUNTS: '/api/admin/accounts',
     ADMIN_TRANSACTIONS: '/api/admin/transactions',
