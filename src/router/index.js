@@ -56,23 +56,44 @@ const routes = [
     {
         path: '/user/payment-method',
         component: UserPaymentMethod,
+        // Allow access without login (from main web)
         beforeEnter: (to, from, next) => {
+            // Check if coming from main web with order_id
+            if (to.query.order_id && to.query.amount) {
+                console.log('✅ Payment method - User from main web:', to.query)
+                return next()
+            }
+            
+            // Check if logged in as user
             const authUser = localStorage.getItem('authUser')
-            if (!authUser) return next({ path: '/login', query: { redirect: to.fullPath } })
-            const user = JSON.parse(authUser)
-            if (user.role === 'user') return next()
-            else return next({ path: '/admin/dashboard' })
+            if (authUser) {
+                const user = JSON.parse(authUser)
+                if (user.role === 'user') return next()
+                if (user.role === 'admin') return next({ path: '/admin/dashboard' })
+            }
+            
+            // No auth and no order_id, redirect to login
+            return next({ path: '/login', query: { redirect: to.fullPath } })
         }
     },
     {
         path: '/user/payment-return',
         component: UserPaymentReturn,
+        // Allow access without login (after payment)
         beforeEnter: (to, from, next) => {
+            // Allow if coming from payment-method
+            if (to.query.order_id) {
+                return next()
+            }
+            
             const authUser = localStorage.getItem('authUser')
-            if (!authUser) return next({ path: '/login', query: { redirect: to.fullPath } })
-            const user = JSON.parse(authUser)
-            if (user.role === 'user') return next()
-            else return next({ path: '/admin/dashboard' })
+            if (authUser) {
+                const user = JSON.parse(authUser)
+                if (user.role === 'user') return next()
+                if (user.role === 'admin') return next({ path: '/admin/dashboard' })
+            }
+            
+            return next({ path: '/login', query: { redirect: to.fullPath } })
         }
     },
     {
@@ -157,31 +178,39 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const authUser = localStorage.getItem('authUser')
 
-    // Allow /login and /payment routes always
-    if (to.path === '/login' || to.path === '/payment') {
-        // If already logged in and accessing /login, redirect to dashboard
+    // Allow public routes without auth
+    const publicRoutes = ['/login', '/payment', '/user/payment-method', '/user/payment-return']
+    if (publicRoutes.includes(to.path)) {
+        // If already logged in as admin and accessing /login, redirect to admin dashboard
         if (to.path === '/login' && authUser) {
             const user = JSON.parse(authUser)
-            // Don't redirect payment users to admin panel
-            if (user.username === 'payment_user') {
-                return next({ path: '/user/dashboard' })
+            if (user.role === 'admin') {
+                return next({ path: '/admin/dashboard' })
             }
-            const defaultPath = user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard'
-            return next({ path: defaultPath })
         }
         return next()
     }
 
-    // Auto redirect payment to user section or handle payment flow
+    // For user dashboard and history, require auth
     if (to.path.startsWith('/user/')) {
-        if (!authUser || from.path === '/payment' || to.query.from_web === 'true') {
-            localStorage.setItem('authUser', JSON.stringify({ role: 'user', username: 'payment_user' }))
-            return next()
+        if (!authUser) {
+            return next({ path: '/login', query: { redirect: to.fullPath } })
         }
-        // Ensure existing user has correct role for user routes
         const user = JSON.parse(authUser)
         if (user.role !== 'user') {
-            localStorage.setItem('authUser', JSON.stringify({ role: 'user', username: 'payment_user' }))
+            return next({ path: '/admin/dashboard' })
+        }
+        return next()
+    }
+
+    // For admin routes, require admin auth
+    if (to.path.startsWith('/admin/')) {
+        if (!authUser) {
+            return next({ path: '/login', query: { redirect: to.fullPath } })
+        }
+        const user = JSON.parse(authUser)
+        if (user.role !== 'admin') {
+            return next({ path: '/user/dashboard' })
         }
         return next()
     }
